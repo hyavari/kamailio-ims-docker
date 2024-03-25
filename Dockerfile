@@ -18,6 +18,8 @@ COPY --from=build /usr/local/kamailio /usr/local/kamailio
 RUN apt-get update && apt-get install -y wget nano libmnl0 libsctp1 libxml2 libcurl4 libpcre3 libssl3 default-mysql-client && rm -rf /var/lib/apt/lists/*
 
 COPY ./configs/* /usr/local/kamailio/etc/kamailio/
+COPY ./route /usr/local/kamailio/etc/kamailio/route
+
 RUN mkdir -p /var/run/kamailio
 
 CMD ["/usr/local/kamailio/sbin/kamailio", "-DD", "-E", "-e"]
