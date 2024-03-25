@@ -21,4 +21,6 @@ COPY ./configs/kamailio.cfg /usr/local/kamailio/etc/kamailio/kamailio.cfg
 COPY ./configs/pcscf.cfg /usr/local/kamailio/etc/kamailio/pcscf.cfg
 COPY ./route /usr/local/kamailio/etc/kamailio/route
 
+RUN mkdir -p /var/run/kamailio
+
 CMD ["/usr/local/kamailio/sbin/kamailio", "-DD", "-E", "-e"]
