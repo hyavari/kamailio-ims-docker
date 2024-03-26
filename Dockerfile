@@ -3,7 +3,7 @@ FROM debian:stable as build
 # Install necessary dependencies
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    ca-certificates gnupg vim wget apt-transport-https git bison flex make default-libmysqlclient-dev \
+    gcc ca-certificates gnupg vim wget apt-transport-https git bison flex make default-libmysqlclient-dev \
     autoconf pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libpcre3-dev \
     libpcre2-dev libmnl-dev libsctp-dev libxml2-dev libjson-c-dev && \
     rm -rf /var/lib/apt/lists/*
