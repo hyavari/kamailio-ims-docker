@@ -5,7 +5,7 @@ RUN rm -rf /var/lib/apt/lists/* && apt-get update && \
     autoconf pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libpcre3-dev libpcre2-dev libmnl-dev libsctp-dev libxml2-dev
 
 # TODO: Change to the latest stable version
-RUN git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio && cd kamailio && git checkout 4fb8accc6747ad56fec3dc84d70cb2b8bbd7316e
+RUN git clone https://github.com/kamailio/kamailio && cd kamailio && git checkout 4fb8accc6747ad56fec3dc84d70cb2b8bbd7316e
 
 WORKDIR /kamailio
 RUN make PREFIX="/usr/local/kamailio" cfg
