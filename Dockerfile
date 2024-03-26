@@ -19,7 +19,7 @@ FROM debian:stable-slim
 COPY --from=build /usr/local/kamailio /usr/local/kamailio
 RUN apt-get update && apt-get install -y wget nano libmnl0 libsctp1 libxml2 libcurl4 libpcre3 libssl3 default-mysql-client && rm -rf /var/lib/apt/lists/*
 
-COPY configs/* /usr/local/kamailio/etc/kamailio/
+COPY configs/ /usr/local/kamailio/etc/kamailio/
 RUN mkdir -p /var/run/kamailio
 COPY init.sh /init.sh
 RUN chmod +x /init.sh
