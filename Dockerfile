@@ -6,7 +6,7 @@ RUN rm -rf /var/lib/apt/lists/* && apt-get update && \
 
 RUN git clone --depth 1 --no-single-branch https://github.com/kamailio/kamailio kamailio && cd kamailio && git checkout -b 5.8 origin/5.8
 WORKDIR /kamailio
-COPY configs/modules.lst /kamailio/
+COPY configs/modules.lst .
 
 RUN make PREFIX="/usr/local/kamailio" cfg
 RUN make Q=0 all
