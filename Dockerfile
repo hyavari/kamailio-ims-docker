@@ -22,5 +22,6 @@ RUN apt-get update && apt-get install -y wget nano libmnl0 libsctp1 libxml2 libc
 COPY configs/* /usr/local/kamailio/etc/kamailio/
 RUN mkdir -p /var/run/kamailio
 COPY init.sh /init.sh
+RUN chmod +x /init.sh
 
 CMD ["/init.sh"]
