@@ -9,7 +9,7 @@ RUN git clone https://github.com/kamailio/kamailio && cd kamailio && git checkou
 
 WORKDIR /kamailio
 RUN make PREFIX="/usr/local/kamailio" cfg
-COPY modules/modules.lst .
+COPY modules/modules.lst ./src
 RUN make -j`nproc` Q=0 all | tee make_all.txt && \
     make install | tee make_install.txt && \
     ldconfig
