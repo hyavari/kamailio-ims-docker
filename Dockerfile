@@ -2,7 +2,7 @@ FROM debian:stable as build
 
 RUN rm -rf /var/lib/apt/lists/* && apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -qq --assume-yes gnupg vim wget apt-transport-https git bison flex make default-libmysqlclient-dev \
-    autoconf pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libpcre3-dev libpcre2-dev libmnl-dev libsctp-dev libxml2-dev
+    autoconf pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libpcre3-dev libpcre2-dev libmnl-dev libsctp-dev libxml2-dev libjson-c-dev
 
 # TODO: Change to the latest stable version
 RUN git clone https://github.com/kamailio/kamailio && cd kamailio && git checkout 4fb8accc6747ad56fec3dc84d70cb2b8bbd7316e
