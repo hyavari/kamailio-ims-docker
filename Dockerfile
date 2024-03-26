@@ -1,4 +1,4 @@
-FROM debian:stable as build
+FROM debian:bookworm as build
 
 # Install necessary dependencies
 RUN apt-get update && \
