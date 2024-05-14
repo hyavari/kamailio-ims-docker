@@ -26,7 +26,7 @@ COPY --from=build /usr/local/kamailio /usr/local/kamailio
 # Install necessary runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    wget nano libmnl0 libsctp1 libxml2 libcurl4 libpcre3 libssl3 default-mysql-client && \
+    wget nano libmnl0 libsctp1 libxml2 libcurl4 libpcre3 libssl3 default-mysql-client net-tools && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy Kamailio configuration files and initialize script
