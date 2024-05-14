@@ -4,7 +4,7 @@ FROM debian:bookworm as build
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     gcc ca-certificates gnupg vim wget apt-transport-https git bison flex make default-libmysqlclient-dev \
-    autoconf pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libpcre3-dev \
+    autoconf pkg-config libssl-dev libcurl4-openssl-dev libxml2-dev libpcre3-dev libevent-dev \
     libpcre2-dev libmnl-dev libsctp-dev libxml2-dev libjson-c-dev && \
     rm -rf /var/lib/apt/lists/*
 
