@@ -20,7 +20,7 @@ RUN make -j$(nproc) Q=0 all | tee make_all.txt && \
     make install | tee make_install.txt && \
     ldconfig
 
-# final image
+# Final image
 FROM debian:bookworm-slim
 COPY --from=build /usr/local/kamailio /kamailio
 # Install necessary runtime dependencies
@@ -29,7 +29,7 @@ RUN apt-get update && \
     wget nano libmnl0 libsctp1 libxml2 libcurl4 libpcre3 libssl3 default-mysql-client net-tools && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy Kamailio configuration files and initialize script
+# Copy Kamailio configuration files and initializer script
 COPY cscf_configs/ /kamailio/etc/kamailio/
 COPY entrypoint.sh /
 
