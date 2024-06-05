@@ -22,7 +22,7 @@ RUN make -j$(nproc) Q=0 all | tee make_all.txt && \
 
 # Final image
 FROM debian:bookworm-slim
-COPY --from=build /usr/local/kamailio /kamailio
+COPY --from=build /usr/local/kamailio /usr/local/kamailio
 # Install necessary runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -30,7 +30,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy Kamailio configuration files and initializer script
-COPY cscf_configs/ /kamailio/etc/kamailio/
+COPY cscf_configs/ /usr/local/kamailio/etc/kamailio/
 COPY entrypoint.sh /
 
 # Set default command
