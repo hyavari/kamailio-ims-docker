@@ -13,16 +13,16 @@ RUN git clone https://github.com/kamailio/kamailio && \
     cd kamailio && \
     make PREFIX="/usr/local/kamailio" cfg
 
-WORKDIR /kamailio
-COPY modules/modules.lst ./src
 # Build Kamailio
+WORKDIR /kamailio
+COPY kamailio_modules/modules.lst ./src
 RUN make -j$(nproc) Q=0 all | tee make_all.txt && \
     make install | tee make_install.txt && \
     ldconfig
 
 # final image
 FROM debian:bookworm-slim
-COPY --from=build /usr/local/kamailio /usr/local/kamailio
+COPY --from=build /usr/local/kamailio /kamailio
 # Install necessary runtime dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -30,10 +30,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy Kamailio configuration files and initialize script
-COPY configs/ /usr/local/kamailio/etc/kamailio/
+COPY cscf_configs/ /kamailio/etc/kamailio/
 RUN mkdir -p /var/run/kamailio
-COPY init.sh /init.sh
-RUN chmod +x /init.sh
+COPY entrypoint.sh /
 
 # Set default command
-CMD ["/init.sh"]
+CMD ["/entrypoint.sh"]

@@ -1,1 +1,1 @@
-Docker Image for running Kamailio IMS
+Docker Image for Running Kamailio IMS (*-CSCF)
