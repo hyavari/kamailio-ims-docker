@@ -31,7 +31,6 @@ RUN apt-get update && \
 
 # Copy Kamailio configuration files and initialize script
 COPY cscf_configs/ /kamailio/etc/kamailio/
-RUN mkdir -p /var/run/kamailio
 COPY entrypoint.sh /
 
 # Set default command
