@@ -13,6 +13,14 @@ prepare_pcscf() {
     sed -i 's|IMS_DOMAIN|'$IMS_DOMAIN'|g' $CFG_PATH/pcscf/pcscf.cfg
 }
 
+prepare_icscf() {
+    echo "Preparing ICSCF configuration..."
+}
+
+prepare_scscf() {
+    echo "Preparing SCSCF configuration..."
+}
+
 # Start Kamailio with the appropriate configuration file
 if [[ -z "$COMPONENT_NAME" ]]; then
     echo "Error: COMPONENT_NAME environment variable not set"; exit 1;
