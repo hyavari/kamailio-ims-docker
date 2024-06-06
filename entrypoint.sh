@@ -1,11 +1,30 @@
 #!/bin/bash
 
-cp -r /usr/local/kamailio/etc/kamailio/pcscf/* /usr/local/kamailio/etc/kamailio/ && \
-rm -rf /usr/local/kamailio/etc/kamailio/pcscf && \
-rm -f /kamailio_pcscf.pid && \
-mkdir -p /var/run/kamailio_pcscf && \
+# Path to Kamailio
+RUN_PATH=/usr/local/kamailio/sbin
+CFG_PATH=/usr/local/kamailio/etc/kamailio
+PID_PATH=/var/run
 
-sed -i 's|PCSCF_IP|'$PCSCF_IP'|g' /usr/local/kamailio/etc/kamailio/pcscf.cfg
-sed -i 's|IMS_DOMAIN|'$IMS_DOMAIN'|g' /usr/local/kamailio/etc/kamailio/pcscf.cfg
-
-/usr/local/kamailio/sbin/kamailio -f /usr/local/kamailio/etc/kamailio/kamailio.cfg -P /kamailio_pcscf.pid -DD -E -e
+# Start Kamailio with the appropriate configuration file
+if [[ -z "$COMPONENT_NAME" ]]; then
+    echo "Error: COMPONENT_NAME environment variable not set"; exit 1;
+elif [[ "$COMPONENT_NAME" =~ ^icscf-[[:digit:]]+$ ]]; then
+    echo "Deploying component: '$COMPONENT_NAME'"
+    mkdir -p $PID_PATH/kamailio_icscf && \
+    rm -f $PID_PATH/kamailio_icscf/kamailio_icscf.pid && \
+    $RUN_PATH/kamailio -f $CFG_PATH/icscf/kamailio.cfg -P $PID_PATH/kamailio_icscf/kamailio_icscf.pid -DD -E -e
+elif [[ "$COMPONENT_NAME" =~ ^scscf-[[:digit:]]+$ ]]; then
+    echo "Deploying component: '$COMPONENT_NAME'"
+    mkdir -p $PID_PATH/kamailio_scscf && \
+    rm -f $PID_PATH/kamailio_scscf/kamailio_scscf.pid && \
+    $RUN_PATH/kamailio -f $CFG_PATH/scscf/kamailio.cfg -P $PID_PATH/kamailio_scscf/kamailio_scscf.pid -DD -E -e
+elif [[ "$COMPONENT_NAME" =~ ^pcscf-[[:digit:]]+$ ]]; then
+    echo "Deploying component: '$COMPONENT_NAME'"
+    mkdir -p $PID_PATH/kamailio_pcscf && \
+    rm -f $PID_PATH/kamailio_pcscf/kamailio_pcscf.pid && \
+    sed -i 's|PCSCF_IP|'$PCSCF_IP'|g' $CFG_PATH/pcscf/pcscf.cfg && \
+    sed -i 's|IMS_DOMAIN|'$IMS_DOMAIN'|g' $CFG_PATH/pcscf/pcscf.cfg && \
+    $RUN_PATH/kamailio -f $CFG_PATH/pcscf/kamailio.cfg -P $PID_PATH/kamailio_pcscf/kamailio_pcscf.pid -DD -E -e
+else
+    echo "Error: Invalid component name: '$COMPONENT_NAME'"
+fi
