@@ -30,11 +30,13 @@ elif [[ "$COMPONENT_NAME" =~ ^i-?cscf-?[[:digit:]]*$ ]]; then
     echo "Deploying component: '$COMPONENT_NAME'"
     mkdir -p $PID_PATH/kamailio_icscf && \
     rm -f $PID_PATH/kamailio_icscf/kamailio_icscf.pid && \
+    prepare_icscf && \
     $RUN_PATH/kamailio -f $CFG_PATH/icscf/kamailio.cfg -P $PID_PATH/kamailio_icscf/kamailio_icscf.pid -DD -E -e
 elif [[ "$COMPONENT_NAME" =~ ^s-?cscf-?[[:digit:]]*$ ]]; then
     echo "Deploying component: '$COMPONENT_NAME'"
     mkdir -p $PID_PATH/kamailio_scscf && \
     rm -f $PID_PATH/kamailio_scscf/kamailio_scscf.pid && \
+    prepare_scscf && \
     $RUN_PATH/kamailio -f $CFG_PATH/scscf/kamailio.cfg -P $PID_PATH/kamailio_scscf/kamailio_scscf.pid -DD -E -e
 elif [[ "$COMPONENT_NAME" =~ ^p-?cscf-?[[:digit:]]*$ ]]; then
     echo "Deploying component: '$COMPONENT_NAME'"
