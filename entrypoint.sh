@@ -15,6 +15,8 @@ prepare_pcscf() {
 
 prepare_icscf() {
     echo "Preparing ICSCF configuration..."
+    sed -i 's|ICSCF_IP|'$ICSCF_IP'|g' $CFG_PATH/icscf/icscf.cfg
+    sed -i 's|IMS_DOMAIN|'$IMS_DOMAIN'|g' $CFG_PATH/icscf/icscf.cfg
 }
 
 prepare_scscf() {
